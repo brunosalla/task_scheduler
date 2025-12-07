@@ -1,0 +1,96 @@
+@import './base.css';
+
+#app {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+/* Utility Classes */
+.jira-btn {
+  padding: var(--jira-spacing-sm) var(--jira-spacing-lg);
+  border: none;
+  border-radius: var(--jira-radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--jira-transition-normal);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--jira-spacing-sm);
+}
+
+.jira-btn-primary {
+  background: var(--jira-blue-primary);
+  color: var(--jira-text-inverse);
+}
+
+.jira-btn-primary:hover {
+  background: var(--jira-blue-dark);
+}
+
+.jira-btn-secondary {
+  background: var(--jira-bg-tertiary);
+  color: var(--jira-text-primary);
+}
+
+.jira-btn-secondary:hover {
+  background: var(--jira-border-medium);
+}
+
+.jira-card {
+  background: var(--jira-bg-primary);
+  border-radius: var(--jira-radius-sm);
+  box-shadow: var(--jira-shadow-sm);
+  transition: all var(--jira-transition-normal);
+}
+
+.jira-card:hover {
+  box-shadow: var(--jira-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.jira-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--jira-spacing-sm);
+  border-radius: var(--jira-radius-sm);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.jira-badge-todo {
+  background: var(--jira-status-todo);
+  color: var(--jira-text-secondary);
+}
+
+.jira-badge-inprogress {
+  background: var(--jira-blue-lighter);
+  color: var(--jira-blue-dark);
+}
+
+.jira-badge-done {
+  background: #E3FCEF;
+  color: var(--jira-status-done);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--jira-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--jira-border-medium);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--jira-border-dark);
+}
