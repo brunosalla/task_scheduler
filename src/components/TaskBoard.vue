@@ -1,9 +1,14 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useTaskStore } from '../stores/taskStore'
 import TaskCard from './TaskCard.vue'
 
 const taskStore = useTaskStore()
+
+// Fetch tasks when component mounts
+onMounted(async () => {
+  await taskStore.fetchTasks()
+})
 
 const columns = [
   { id: 'todo', title: 'TO DO', status: 'todo' },
@@ -36,7 +41,14 @@ const handleCreateClick = () => {
       </div>
     </div>
 
-    <div class="board-columns">
+    <!-- Loading State -->
+    <div v-if="taskStore.isLoading" class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading tasks...</p>
+    </div>
+
+    <!-- Task Board -->
+    <div v-else class="board-columns">
       <div v-for="column in columns" :key="column.id" class="board-column">
         <div class="column-header">
           <h3 class="column-title">{{ column.title }}</h3>
@@ -166,5 +178,30 @@ const handleCreateClick = () => {
   background: var(--jira-bg-primary);
   border-color: var(--jira-blue-primary);
   color: var(--jira-blue-primary);
+}
+
+.loading-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--jira-spacing-lg);
+  color: var(--jira-text-secondary);
+}
+
+.loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--jira-border-light);
+  border-top-color: var(--jira-blue-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>

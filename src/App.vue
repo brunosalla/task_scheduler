@@ -4,6 +4,7 @@ import Sidebar from './components/Sidebar.vue'
 import TopBar from './components/TopBar.vue'
 import TaskModal from './components/TaskModal.vue'
 import CreateTaskModal from './components/CreateTaskModal.vue'
+import ErrorModal from './components/ErrorModal.vue'
 </script>
 
 <template>
@@ -20,6 +21,7 @@ import CreateTaskModal from './components/CreateTaskModal.vue'
 
     <TaskModal />
     <CreateTaskModal />
+    <ErrorModal />
   </div>
 </template>
 
