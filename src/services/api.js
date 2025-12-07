@@ -10,7 +10,8 @@ function transformTask(backendTask) {
         'TODO': 'todo',
         'IN_PROGRESS': 'inprogress',
         'INPROGRESS': 'inprogress',
-        'DONE': 'done'
+        'DONE': 'done',
+        'FINISHED': 'done'
     }
 
     return {
@@ -34,7 +35,7 @@ function transformTaskToBackend(frontendTask) {
     const statusMap = {
         'todo': 'TODO',
         'inprogress': 'IN_PROGRESS',
-        'done': 'DONE'
+        'done': 'finished'
     }
 
     return {
@@ -125,7 +126,7 @@ export const taskApi = {
         const statusMap = {
             'todo': 'TODO',
             'inprogress': 'IN_PROGRESS',
-            'done': 'DONE'
+            'done': 'finished'
         }
         const updatedTask = await apiRequest(`/tasks/${taskId.replace('TASK-', '')}/status`, {
             method: 'PATCH',
