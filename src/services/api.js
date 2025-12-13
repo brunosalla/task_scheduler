@@ -21,6 +21,7 @@ function transformTask(backendTask) {
         status: statusMap[backendTask.status?.toUpperCase()] || 'todo',
         priority: backendTask.priority?.toLowerCase() || 'medium',
         type: backendTask.type?.toLowerCase() || 'task',
+        dueDate: backendTask.dueDate || null,
         assignee: backendTask.assignee || {
             name: 'Unassigned',
             avatar: 'UN'
@@ -45,6 +46,7 @@ function transformTaskToBackend(frontendTask) {
         status: statusMap[frontendTask.status] || 'TODO',
         priority: frontendTask.priority?.toUpperCase(),
         type: frontendTask.type?.toUpperCase(),
+        dueDate: frontendTask.dueDate || null,
         assignee: frontendTask.assignee
     }
 }

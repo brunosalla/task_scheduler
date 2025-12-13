@@ -118,8 +118,23 @@ export const useTaskStore = defineStore('tasks', () => {
         throw new Error(`Invalid status: ${newStatus}`)
       }
 
-      // Use updateTask which already handles API calls
-      await updateTask(taskId, { status: newStatus })
+      // Optimistic update
+      const index = tasks.value.findIndex(t => t.id === taskId)
+      if (index === -1) {
+        throw new Error(`Task with ID ${taskId} not found`)
+      }
+      const previousTask = { ...tasks.value[index] }
+      tasks.value[index] = { ...tasks.value[index], status: newStatus }
+
+      try {
+        // Use PATCH /status endpoint for status-only updates
+        const updatedTask = await taskApi.updateTaskStatus(taskId, newStatus)
+        tasks.value[index] = updatedTask
+      } catch (apiError) {
+        // Rollback on error
+        tasks.value[index] = previousTask
+        throw apiError
+      }
     } catch (error) {
       errorStore.showError('Failed to move task', error.message)
       throw error
