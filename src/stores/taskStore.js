@@ -62,7 +62,7 @@ export const useTaskStore = defineStore('tasks', () => {
 
       try {
         // Call API to update task in database
-        const updatedTask = await taskApi.updateTask(taskId, updates)
+        const updatedTask = await taskApi.updateTask(taskId, tasks.value[index])
         // Update with server response
         tasks.value[index] = updatedTask
         return updatedTask

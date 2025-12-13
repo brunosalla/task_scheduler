@@ -9,9 +9,7 @@ function transformTask(backendTask) {
     const statusMap = {
         'TODO': 'todo',
         'IN_PROGRESS': 'inprogress',
-        'INPROGRESS': 'inprogress',
-        'DONE': 'done',
-        'FINISHED': 'done'
+        'DONE': 'done'
     }
 
     return {
@@ -36,7 +34,7 @@ function transformTaskToBackend(frontendTask) {
     const statusMap = {
         'todo': 'TODO',
         'inprogress': 'IN_PROGRESS',
-        'done': 'finished'
+        'done': 'DONE'
     }
 
     return {
@@ -71,6 +69,10 @@ async function apiRequest(endpoint, options = {}) {
         if (!response.ok) {
             const errorData = await response.json().catch(() => ({}))
             throw new Error(errorData.message || `HTTP error! status: ${response.status}`)
+        }
+
+        if (response.status === 204) {
+            return null
         }
 
         return await response.json()
@@ -128,7 +130,7 @@ export const taskApi = {
         const statusMap = {
             'todo': 'TODO',
             'inprogress': 'IN_PROGRESS',
-            'done': 'finished'
+            'done': 'DONE'
         }
         const updatedTask = await apiRequest(`/tasks/${taskId.replace('TASK-', '')}/status`, {
             method: 'PATCH',
